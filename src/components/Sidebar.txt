@@ -1,0 +1,74 @@
+import { useState } from "react";
+import {
+  Home,
+  BookOpen,
+  Users,
+  Calendar,
+  Settings,
+  LogOut,
+  Menu,
+  ChevronLeft,
+} from "lucide-react";
+
+export default function Sidebar({ children }) {
+  const [open, setOpen] = useState(true);
+
+  const menus = [
+    { name: "Dashboard", icon: Home },
+    { name: "Courses", icon: BookOpen },
+    { name: "Students", icon: Users },
+    { name: "Schedule", icon: Calendar },
+    { name: "Settings", icon: Settings },
+    { name: "Logout", icon: LogOut },
+  ];
+
+  return (
+    <div className="flex flex-1 min-h-0">
+      {/* Sidebar */}
+      <div
+        className={`${
+          open ? "w-64" : "w-16"
+        } bg-gray-600 text-gray-100 h-dvh p-4 pt-8 relative duration-300 shrink-0`}
+      >
+        {/* Toggle Button */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="absolute -right-3 top-9 bg-gray-800 border border-gray-600 rounded-full p-1"
+        >
+          {open ? <ChevronLeft size={20} /> : <Menu size={20} />}
+        </button>
+
+        {/* Logo */}
+        <div className="flex items-center gap-2 pb-6">
+          <div className="bg-gray-600 p-2 rounded">📘</div>
+          <h1
+            className={`text-lg font-bold origin-left duration-200 ${
+              !open && "scale-0"
+            }`}
+          >
+            Scheduler
+          </h1>
+        </div>
+        <hr className="border-1 border-gray-400" />
+
+        {/* Menu Items */}
+        <ul className="pt-6">
+          {menus.map((menu, i) => (
+            <li
+              key={i}
+              className="flex items-center gap-3 text-sm cursor-pointer p-2 hover:bg-gray-700 rounded-md"
+            >
+              <menu.icon size={20} />
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                {menu.name}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Page Content */}
+      <div className="flex-1 overflow-auto">{children}</div>
+    </div>
+  );
+}
