@@ -1,35 +1,35 @@
-import { NotebookPen, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 
 const steps = [
   {
-    title: "1. Add a College Program",
+    title: "1. Choose a College Program",
     description:
-      "Start by creating a college program. Each college can have its own set of courses, teachers, and rooms. Navigate to the 'Colleges Program (dashboard)' section and click 'Add College'. Provide the name.",
+      "Each college can have its own set of courses, teachers, and rooms. Navigate to dashboard to see all available programs. *** Note: Request college addition and deletion from admin ***",
   },
   {
-    title: "2. Add Courses for the College",
+    title: "2. Add Courses to a College Program",
     description:
-      "Once a college program is added, select the college's course tab and input the course name, course code, and other relevant details. Click 'Add Course' to save.",
+      "Select the college's course tab and input the course name, course code, and hours per week. Click 'Add Course' to save. From here you can edit and delete a course.",
   },
   {
     title: "3. Add Teachers",
     description:
-      "In the 'Teachers' section, you can assign instructors to courses. Fill in the teacher's name, department, and preferred availability if applicable. Click 'Add Teacher' to proceed.",
+      "Click the teachers in a college. Fill in the teacher's name, department, and preferred availability if applicable. Click 'Add Teacher' to proceed.",
   },
   {
-    title: "4. Add Rooms",
+    title: "4. Assign a teacher to a course",
     description:
-      "Navigate to the 'Rooms' section to register available classrooms. Specify the room name or number, capacity, and building/floor if needed. Click 'Add Room' to save it to the list.",
+      "In a list of courses, click the assign teacher icon. Choose the applicable teacher for the subject and click done. *** Note: All teachers will be listed, they are just filtered ascending by department ***",
   },
+  // {
+  //   title: "4. Add Rooms",
+  //   description:
+  //     "Navigate to the 'Rooms' section to register available classrooms. Specify the room name or number, capacity, and building/floor if needed. Click 'Add Room' to save it to the list.",
+  // },
   {
-    title: "5. Create Course–Teacher Combinations",
+    title: "5. Generate Schedule",
     description:
-      "After adding the required data, go to the 'Assignments' tab. Select a course, then choose a teacher who can handle it. You can also optionally assign a preferred room or time block. Click 'Add Combination' to queue it for scheduling.",
-  },
-  {
-    title: "6. Generate Schedule",
-    description:
-      "When all course–teacher combinations are added, head to the 'Scheduler' section and click 'Generate Schedule'. The system will automatically allocate timeslots and rooms while avoiding conflicts.",
+      "When all course–teacher combinations are added, head to the 'Schedule' section and click 'Auto-plot Schedule'. The system will automatically allocate timeslots and rooms while avoiding conflicts.",
   },
   {
     title: "Manual Override",
@@ -46,12 +46,11 @@ const Tutorial = () => {
         {/* Content */}
         <div className="max-w-4xl mx-auto px-6 py-12 space-y-8">
           <h1 className="flex items-center justify-center space-x-2 text-4xl font-bold mb-6 text-gray-800">
-            <NotebookPen size="30" />
-            <span>Tutorial: How to Use the Scheduler</span>
+            <span>A quick run-down of Timelyfy (for moderators)</span>
           </h1>
-          <p className="text-gray-600 mb-12 text-lg text-center">
-            Follow these steps to prepare your data and generate an automated
-            class schedule for your college.
+          <p className="text-gray-600 text-lg text-center">
+            Follow these steps to prepare your data and generate a schedule for
+            your college program.
           </p>
 
           {steps.map(({ title, description, icon }, index) => (

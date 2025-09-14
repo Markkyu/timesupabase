@@ -9,13 +9,9 @@ import useUsers from "@hooks/useUsers";
 function RoleManagement() {
   const { users, users_loading, users_error } = useUsers();
 
-  const nonAdminUsers = users.filter(
-    (user) =>
-      user.role.trim().includes("user") ||
-      user.role.trim().includes("moderator")
+  const nonAdminUsers = users.filter((user) =>
+    ["user", "moderator"].includes(user?.role)
   );
-
-  console.log("Non admin users:", nonAdminUsers);
 
   return (
     <div className="h-full bg-gray-100 p-6 flex items-center justify-center overflow-auto">
@@ -23,6 +19,9 @@ function RoleManagement() {
         {/* Header */}
         <div className="px-6 py-4 bg-maroon-800 bg-red-800 ">
           <h2 className="text-2xl font-bold text-white">User Role List</h2>
+          <p className="text-sm text-white">
+            🚧 This page is under construction 🚧
+          </p>
         </div>
 
         {/* Table wrapper with fixed height */}
@@ -42,7 +41,6 @@ function RoleManagement() {
               <table className="w-full text-left border-collapse">
                 <thead className="bg-gray-100 text-gray-600 uppercase text-sm sticky top-0">
                   <tr>
-                    <th className="px-6 py-3">User Id</th>
                     <th className="px-6 py-3">Name</th>
                     <th className="px-6 py-3">Role</th>
                     <th className="px-6 py-3">Actions</th>
@@ -50,14 +48,11 @@ function RoleManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  {nonAdminUsers.map((user) => (
+                  {users.map((user) => (
                     <tr
-                      key={user.user_id}
+                      key={user.id}
                       className="hover:bg-gray-50 transition border-b last:border-none"
                     >
-                      <td className="px-6 py-4 text-lg text-gray-800 font-medium">
-                        {user.user_id}
-                      </td>
                       <td className="px-6 py-4 text-lg text-gray-800 font-medium">
                         {user.username}
                       </td>

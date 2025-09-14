@@ -1,37 +1,33 @@
-import { ChevronFirst, ChevronLast } from "lucide-react";
-import logo from "@assets/logo.png";
-import profile from "@assets/profile.png";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SidebarContext = createContext();
 
-export default function Sidebar({ children }) {
+const Sidebar = ({ children }) => {
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <>
-      {/* <aside className="h-dvh"> */}
-      <nav className="h-full flex flex-col bg-gray-200 border-r shadow-sm">
-        <div className="p-4 pb-2 flex justify-between items-center">
-          <button
-            onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
-          >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button>
-        </div>
+    <nav className="h-full flex flex-col bg-gray-200 border-r shadow-sm">
+      <div className="p-4 pb-2 flex justify-end">
+        <button
+          onClick={() => setExpanded((curr) => !curr)}
+          className="p-1.5 rounded-lg transition-all hover:bg-gray-100 hover:cursor-pointer"
+        >
+          {expanded ? <ChevronsLeft /> : <ChevronsRight />}
+        </button>
+      </div>
 
-        <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 px-3">{children}</ul>
-        </SidebarContext.Provider>
-      </nav>
-      {/* </aside> */}
-    </>
+      <SidebarContext.Provider value={{ expanded }}>
+        <ul className="flex-1 px-3">{children}</ul>
+      </SidebarContext.Provider>
+    </nav>
   );
-}
+};
 
-export function SidebarItem({ icon, text, path, onClick }) {
+export default Sidebar;
+
+export const SidebarItem = ({ icon, text, path, onClick }) => {
   const { expanded } = useContext(SidebarContext);
   const navigate = useNavigate();
 
@@ -39,7 +35,7 @@ export function SidebarItem({ icon, text, path, onClick }) {
     navigate(`/${path}`);
 
     if (onClick) {
-      onClick(); // custom action
+      onClick();
     }
   };
 
@@ -50,7 +46,7 @@ export function SidebarItem({ icon, text, path, onClick }) {
     >
       {icon}
       <span
-        className={`overflow-hidden transition-all ${
+        className={`whitespace-nowrap duration-300 overflow-hidden transition-all ${
           expanded ? "w-52 ml-3" : "w-0"
         }`}
       >
@@ -58,10 +54,10 @@ export function SidebarItem({ icon, text, path, onClick }) {
       </span>
 
       {!expanded && (
-        <div className="absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
+        <div className="absolute bg-blue-100 left-full rounded-md px-2 py-1 ml-6 text-indigo-800 text-sm invisible -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
           {text}
         </div>
       )}
     </li>
   );
-}
+};

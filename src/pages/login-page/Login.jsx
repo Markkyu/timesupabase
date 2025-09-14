@@ -1,16 +1,12 @@
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
 import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
 
 import LoginForm from "./LoginForm";
 import useAuthStore from "@stores/useAuthStore";
 
 const Login = () => {
   const [showLogin, setShowLogin] = useState(false);
-
-  const logout = useAuthStore((state) => state.logout);
 
   return (
     <>
@@ -37,16 +33,6 @@ const Login = () => {
                     sx={{ fontWeight: "bold", borderRadius: 4 }}
                   >
                     Login
-                  </Button>
-                  <Button
-                    onClick={logout}
-                    size="large"
-                    variant="contained"
-                    color="error"
-                    endIcon={<LogoutIcon />}
-                    sx={{ fontWeight: "bold", borderRadius: 4 }}
-                  >
-                    Logout
                   </Button>
                 </div>
               </div>

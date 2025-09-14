@@ -22,6 +22,9 @@ const UserAssignmentPage = () => {
         {/* Header */}
         <div className="px-6 py-4 bg-maroon-800 bg-red-800 ">
           <h2 className="text-2xl font-bold text-white">User Role List</h2>
+          <p className="text-sm text-white">
+            🚧 This page is under construction 🚧
+          </p>
         </div>
 
         {/* Table wrapper with fixed height */}
@@ -41,7 +44,6 @@ const UserAssignmentPage = () => {
               <table className="w-full text-left border-collapse">
                 <thead className="bg-gray-100 text-gray-600 uppercase text-sm sticky top-0">
                   <tr>
-                    <th className="px-6 py-3">User Id</th>
                     <th className="px-6 py-3">Name</th>
                     <th className="px-6 py-3">Assigned Deparment</th>
                     <th className="px-6 py-3">Actions</th>
@@ -51,19 +53,16 @@ const UserAssignmentPage = () => {
                 <tbody>
                   {userRoleOnly.map((user) => (
                     <tr
-                      key={user.user_id}
+                      key={user.id}
                       className="hover:bg-gray-50 transition border-b last:border-none"
                     >
-                      <td className="px-6 py-4 text-lg text-gray-800 font-medium">
-                        {user.user_id}
-                      </td>
                       <td className="px-6 py-4 text-lg text-gray-800 font-medium">
                         {user.username}
                       </td>
                       <td className="px-6 py-4 text-lg text-gray-800 font-medium">
                         {user.college_name
                           ? user.college_name
-                          : "No colleges assigned"}
+                          : "No program assigned"}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2 flex-wrap">

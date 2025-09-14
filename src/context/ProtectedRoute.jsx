@@ -2,13 +2,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import useAuthStore from "@stores/useAuthStore";
 
 const ProtectedRoute = ({ roles }) => {
-  const user = useAuthStore((s) => s.user);
+  const { user, profile } = useAuthStore();
 
-  if (!user) {
+  if (!profile) {
     return <Navigate to="/login" />;
   }
 
-  if (roles && !roles.includes(user.role)) {
+  if (roles && !roles.includes(profile.role)) {
     return <Navigate to="/unauthorized" />;
   }
 

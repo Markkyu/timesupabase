@@ -1,24 +1,23 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useCourses from "@hooks/useCourses";
-import SemesterSection from "./SemesterSection";
+import SchedulerSemester from "./SchedulerSemester";
 import useAuthStore from "@stores/useAuthStore";
 import { useEffect } from "react";
 
 const uniqueYears = [1, 2, 3, 4];
 const uniqueSemesters = [1, 2];
 
-export default function CourseList() {
+export default function SchedulerList() {
   const { collegeID } = useParams();
   const { courses, courses_loading } = useCourses(collegeID);
 
   // Frontend check of user assigned department
-  const { profile } = useAuthStore();
-  const navigate = useNavigate();
+  // const { profile } = useAuthStore();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   const validEndPoint =
   //     profile.role.includes("user") && collegeID == profile.assigned_department;
-  //   || profile.role.includes("admin", "moderator");
 
   //   if (!validEndPoint) {
   //     console.warn("Not a valid endpoint, redirecting...");
@@ -28,11 +27,13 @@ export default function CourseList() {
 
   return (
     <div className="h-full flex flex-col p-5 font-sans overflow-auto">
-      <h1 className="text-4xl font-bold text-center">Course List</h1>
-      <p className="text-xl text-gray-500 text-center mb-5">
-        📝 At the moment, manual refresh muna to show the items after add, edit,
-        and deletion. Still figuring out pa.
-      </p>
+      <h1 className="text-4xl font-bold text-center mb-5">
+        Course List
+        <p className="text-gray-600 text-lg font-normal">
+          🚧 Still working on manual plotting. Both buttons lead to the same
+          page 🚧
+        </p>
+      </h1>
       {uniqueYears.map((year) => (
         <div
           key={year}
@@ -41,7 +42,7 @@ export default function CourseList() {
           <h2 className="text-2xl font-bold text-center mb-2">Year {year}</h2>
           <div className="flex flex-wrap gap-4 justify-center">
             {uniqueSemesters.map((sem) => (
-              <SemesterSection
+              <SchedulerSemester
                 key={sem}
                 sem={sem}
                 year={year}

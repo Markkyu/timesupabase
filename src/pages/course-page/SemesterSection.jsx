@@ -2,8 +2,13 @@ import { Button } from "@mui/material";
 import CourseCard from "./CourseCard";
 import Box from "@mui/material/Box";
 import CourseSkeletonLoader from "@components/CourseSkeletonLoader";
+import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
+import AddCourseForm from "@pages/course-page/AddCourseForm";
 
 const SemesterSection = ({ sem, courses, year, collegeID, loading }) => {
+  const [openPopup, setOpenPopup] = useState(false);
+
   const filteredCourses = courses.filter(
     (course) =>
       course.course_year === year &&
@@ -21,8 +26,10 @@ const SemesterSection = ({ sem, courses, year, collegeID, loading }) => {
           variant="contained"
           size="small"
           sx={{ marginLeft: "auto", textTransform: "none" }}
+          startIcon={<AddIcon />}
+          onClick={() => setOpenPopup(true)}
         >
-          <strong>Add Course</strong>
+          Add Course
         </Button>
       </div>
 
@@ -37,6 +44,15 @@ const SemesterSection = ({ sem, courses, year, collegeID, loading }) => {
       ) : (
         <CourseCard course={null} />
       )}
+
+      {/* Popup component */}
+      <AddCourseForm
+        open={openPopup}
+        onClose={() => setOpenPopup(false)}
+        sem={sem}
+        year={year}
+        collegeID={collegeID}
+      />
     </div>
   );
 };

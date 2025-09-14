@@ -1,23 +1,66 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
+// import supabase from "@config/supabase";
 
-const API_URL = import.meta.env.VITE_API_URL;
+// export default function useUsers() {
+//   const [users, setUsers] = useState([]);
+//   const [users_loading, setLoading] = useState(true);
+//   const [users_error, setError] = useState(null);
 
-export default function useUsers() {
+//   useEffect(() => {
+//     const loadUsers = async () => {
+//       try {
+//         setLoading(true);
+//         const { data, error } = await supabase.from("profiles").select();
+//         console.log(data);
+//         setUsers(data);
+//       } catch (error) {
+//         console.error(error.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//   }, []);
+
+//   // const [users, setUsers] = useState([]);
+//   // const [users_loading, setLoading] = useState(true);
+//   // const [users_error, setError] = useState(null);
+
+//   // useEffect(() => {
+//   //   const loadUsers = async () => {
+//   //     try {
+//   //       setLoading(true);
+//   //       const { data } = await axios.get(`${API_URL}/api/users`);
+//   //       setUsers(data);
+//   //     } catch (err) {
+//   //       setError(err.message || "Failed to load users");
+//   //     } finally {
+//   //       setLoading(false);
+//   //     }
+//   //   };
+
+//   //   loadUsers();
+//   // }, []);
+
+//   return { users, users_loading, users_error };
+// }
+
+import supabase from "@config/supabase";
+import { useEffect, useState } from "react";
+
+const useUsers = () => {
   const [users, setUsers] = useState([]);
   const [users_loading, setLoading] = useState(true);
   const [users_error, setError] = useState(null);
 
   useEffect(() => {
     const loadUsers = async () => {
-      console.log("inside user");
       try {
         setLoading(true);
-        const { data } = await axios.get(`${API_URL}/api/users`);
+        const { data, error } = await supabase.from("profiles").select();
         setUsers(data);
-        console.log("Users");
       } catch (err) {
-        setError(err.message || "Failed to load users");
+        setError(err);
       } finally {
         setLoading(false);
       }
@@ -27,4 +70,6 @@ export default function useUsers() {
   }, []);
 
   return { users, users_loading, users_error };
-}
+};
+
+export default useUsers;

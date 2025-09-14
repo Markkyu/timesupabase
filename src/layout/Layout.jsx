@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import Header from "@components/Header";
 import useAuthStore from "@stores/useAuthStore";
@@ -11,14 +11,22 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export default function Layout() {
-  const user = useAuthStore((state) => state.user);
+  const { user, profile } = useAuthStore();
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <>
       <div className="h-dvh flex flex-col overflow-hidden">
-        <Header user_name={user?.username} user_role={user?.role} />
+        <Header user_name={profile?.username} user_role={profile?.role} />
         <div className="flex flex-1 min-h-0">
           <Sidebar>
             <SidebarItem
@@ -43,9 +51,9 @@ export default function Layout() {
             />
             <hr className="my-3" />
             <SidebarItem
-              icon={<SettingsOutlinedIcon size={20} />}
-              text="Settings"
-              path="settings"
+              icon={<InfoOutlinedIcon size={20} />}
+              text="About"
+              path="about"
             />
             <SidebarItem
               icon={<HelpOutlineOutlinedIcon size={20} />}
@@ -55,7 +63,7 @@ export default function Layout() {
             <SidebarItem
               icon={<LogoutIcon size={20} />}
               text="Logout"
-              path="login"
+              onClick={handleLogout}
             />
           </Sidebar>
           <main className="flex-1 overflow-hidden">
